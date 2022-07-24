@@ -7,7 +7,7 @@ const app = express();
 const PORT = 5000;
 
 // Import Routers
-const articlesRouter = require("./routes/articles");
+const booksRouter = require("./routes/books");
 const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const rolesRouter = require("./routes/roles");
@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes Middleware
-app.use("/articles", articlesRouter);
+app.use("/books", booksRouter);
 app.use("/register", registerRouter);
 app.use("/roles", rolesRouter);
 app.use("/login", loginRouter);

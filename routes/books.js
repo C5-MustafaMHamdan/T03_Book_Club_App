@@ -12,13 +12,13 @@ const {
 } = require("../controllers/Books");
 
 // Import comments controller
-const { createNewComment } = require("./../controllers/comments");
+const { createNewComment } = require("./../controllers/discussion");
 
 // Middleware
 const authentication = require("../middleware/authentication");
 
 // Create articles router
-const articlesRouter = express.Router();
+const booksRouter = express.Router();
 
 /*
  * Testing Routes:
@@ -45,18 +45,18 @@ const articlesRouter = express.Router();
 }
  */
 
-BooksRouter.get("/", getAllBooks);
-BooksRouter.get("/search_1", getBooksByAuthor);
-BooksRouter.get("/search_2", getBookById);
-BooksRouter.post("/",authentication, createNewBook);
+booksRouter.get("/", getAllBooks);
+booksRouter.get("/search_1", getBooksByAuthor);
+booksRouter.get("/search_2", getBookById);
+booksRouter.post("/",authentication, createNewBook);
  
-BooksRouter.delete("/:id", deleteBookById);
-BooksRouter.delete("/", deleteBookByAuthor);
+booksRouter.delete("/:id", deleteBookById);
+booksRouter.delete("/", deleteBookByAuthor);
 
-BooksRouter.post(
+booksRouter.post(
   "/:id/comments",
   authentication,
   createNewComment
 );
 
-module.exports = articlesRouter;
+module.exports = booksRouter;
