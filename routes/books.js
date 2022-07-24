@@ -5,7 +5,7 @@ const {
   getAllBooks,
   getBooksByAuthor,
   getBookById,
-  createNewBook,
+  AddNewBook,
    
   deleteBookById,
   deleteBookByAuthor,
@@ -22,22 +22,18 @@ const booksRouter = express.Router();
 
 /*
  * Testing Routes:
- * GET - POST ->  http://localhost:5000/articles/
- * POST ->        http://localhost:5000/articles/22/comments/
- * GET  ->        http://localhost:5000/articles/search_1?author=2
- * GET  ->        http://localhost:5000/articles/search_2?id=2
- * PUT  ->        http://localhost:5000/articles/2
- * DELETE ->      http://localhost:5000/articles/2
- * DELETE ->      http://localhost:5000/articles
+ * GET - POST ->  http://localhost:5000/books/
+ * POST ->        http://localhost:5000/books/22/comments/
+ * GET  ->        http://localhost:5000/books/search_1?author=2
+ * GET  ->        http://localhost:5000/books/search_2?id=2
+ * PUT  ->        http://localhost:5000/books/2
+ * DELETE ->      http://localhost:5000/books/2
+ * DELETE ->      http://localhost:5000/books
  */
 
 /*
  * Testing Objects:
- * Article: {
-    "title":"Hello World",
-    "description":"This is for testing",
-    "author":"61d17b37d3a54990e227a549"
-}
+ 
 
  *  Comment: {
     "comment":"wow",
@@ -48,7 +44,7 @@ const booksRouter = express.Router();
 booksRouter.get("/", getAllBooks);
 booksRouter.get("/search_1", getBooksByAuthor);
 booksRouter.get("/search_2", getBookById);
-booksRouter.post("/",authentication, createNewBook);
+booksRouter.post("/",authentication, AddNewBook);
  
 booksRouter.delete("/:id", deleteBookById);
 booksRouter.delete("/", deleteBookByAuthor);

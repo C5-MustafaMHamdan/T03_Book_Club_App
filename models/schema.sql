@@ -1,5 +1,4 @@
 -- Build Your Tables Here --
-
 DROP DATABASE T03_Book_Club_App;
 
 CREATE DATABASE T03_Book_Club_App;
@@ -45,8 +44,7 @@ CREATE TABLE books(
     id INT AUTO_INCREMENT NOT NULL,
     Title VARCHAR(255),
     is_deleted TINYINT DEFAULT 0,
-    admin_id INT,
-    FOREIGN KEY (admin_id) REFERENCES users (id),
+    book_img VARCHAR(255),
     PRIMARY KEY (id)
 );
 
@@ -78,6 +76,16 @@ CREATE TABLE rooms_discussion(
     FOREIGN KEY (room_id) REFERENCES rooms (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
     is_deleted TINYINT DEFAULT 0,
-    is_member BOOLEAN DEFAULT false,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE comments(
+    id INT NOT NULL AUTO_INCREMENT NOT NULL,
+    comment VARCHAR(255),
+    user_id INT,
+    room_id INT,
+    foreign key (user_id) references users(id),
+    foreign key (room_id) references rooms(id),
+    is_deleted TINYINT DEFAULT 0,
     PRIMARY KEY (id)
 );

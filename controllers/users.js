@@ -5,26 +5,16 @@ const mysql = require("mysql2/promise");
 
 ////////////////register/////////////////
 
-
 const register = async (req, res, next) => {
   const email = req.body.email.toLowerCase();
 
-  const {
-    password,
-    username,
-        role_id,
-  } = req.body;
+  const { password, username, role_id } = req.body;
 
   const SALT = Number(process.env.SALT);
   const hashPassword = await bcrypt.hash(password, SALT);
 
   const command = `INSERT INTO users (email ,password ,username  , role_id) VALUES (? , ?,? , ?)`;
-  const data = [
-    email,
-    hashPassword,
-    username,
-        role_id,
-  ];
+  const data = [email, hashPassword, username, role_id];
   connection.query(command, data, (err, result) => {
     if (err?.sqlMessage.includes(`for key 'users.email`)) {
       return res
@@ -95,10 +85,7 @@ const login = (req, res) => {
   });
 };
 
-
-
 ////////////createNewAdmin//////////////////
-
 
 const createNewAdmin = async (req, res) => {
   const email = req.body.email.toLowerCase();
@@ -109,17 +96,8 @@ const createNewAdmin = async (req, res) => {
   const SALT = Number(process.env.SALT);
   const hashPassword = await bcrypt.hash(password, SALT);
 
-  const command = `INSERT INTO users (email ,password ,username , first_name , last_name , country , profile_image , role_id) VALUES (? , ?,? , ?, ? , ?, ? , ?)`;
-  const data = [
-    email,
-    hashPassword,
-    username,
-    first_name,
-    last_name,
-    country,
-    profile_image,
-    role_id,
-  ];
+  const command = `INSERT INTO users (email ,password ,username  , role_id) VALUES (? , ?,? , ?)`;
+  const data = [email, hashPassword, username, role_id];
 
   connection.query(command, data, (err, result) => {
     if (err?.sqlMessage.includes(`for key 'users.email`)) {
@@ -148,16 +126,8 @@ const createNewAdmin = async (req, res) => {
   });
 };
 
-
-
-
-
-
-
-
-
 module.exports = {
   register,
   login,
-  
+  createNewAdmin,
 };

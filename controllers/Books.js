@@ -14,7 +14,7 @@ const getBookById = (req, res) => {
 };
 
 // This function creates new article
-const createNewBook = (req, res) => {
+const AddNewBook = (req, res) => {
   //TODO: write your code here
 };
 
@@ -32,7 +32,7 @@ module.exports = {
   getAllBooks,
   getBooksByAuthor,
   getBookById,
-  createNewBook,
+  AddNewBook,
 
   deleteBookById,
   deleteBookByAuthor,
