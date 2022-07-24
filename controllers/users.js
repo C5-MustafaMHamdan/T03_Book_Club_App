@@ -2,7 +2,10 @@ const connection = require("../models/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mysql = require("mysql2/promise");
-//test
+
+////////////////register/////////////////
+
+
 const register = async (req, res, next) => {
   const email = req.body.email.toLowerCase();
 
@@ -45,7 +48,7 @@ const register = async (req, res, next) => {
   });
 };
 
-///////////signIn////////////////////////////////
+///////////login////////////////////////////////
 
 const login = (req, res) => {
   const password = req.body.password;
@@ -91,6 +94,63 @@ const login = (req, res) => {
     }
   });
 };
+
+
+
+////////////createNewAdmin//////////////////
+
+
+const createNewAdmin = async (req, res) => {
+  const email = req.body.email.toLowerCase();
+  const role_id = 1;
+  const { password, username, first_name, last_name, country, profile_image } =
+    req.body;
+
+  const SALT = Number(process.env.SALT);
+  const hashPassword = await bcrypt.hash(password, SALT);
+
+  const command = `INSERT INTO users (email ,password ,username , first_name , last_name , country , profile_image , role_id) VALUES (? , ?,? , ?, ? , ?, ? , ?)`;
+  const data = [
+    email,
+    hashPassword,
+    username,
+    first_name,
+    last_name,
+    country,
+    profile_image,
+    role_id,
+  ];
+
+  connection.query(command, data, (err, result) => {
+    if (err?.sqlMessage.includes(`for key 'users.email`)) {
+      return res
+        .status(409)
+        .json({ success: false, message: "The Email Already Exists" });
+    }
+
+    if (err?.sqlMessage.includes(`for key 'users.username`)) {
+      return res
+        .status(409)
+        .json({ success: false, message: "The UserName Already Exists" });
+    }
+
+    if (err?.sqlMessage.includes(`'username' cannot be null`)) {
+      return res
+        .status(409)
+        .json({ success: false, message: "The UserName Cannot Be Null" });
+    }
+
+    return res.status(201).json({
+      success: true,
+      message: "Account Created Successfully",
+      user: result,
+    });
+  });
+};
+
+
+
+
 
 
 
