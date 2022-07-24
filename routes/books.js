@@ -2,14 +2,14 @@ const express = require("express");
 
 // Import articles controllers
 const {
-  getAllArticles,
-  getArticlesByAuthor,
-  getArticleById,
-  createNewArticle,
-  updateArticleById,
-  deleteArticleById,
-  deleteArticlesByAuthor,
-} = require("../controllers/articles");
+  getAllBooks,
+  getBooksByAuthor,
+  getBookById,
+  createNewBook,
+   
+  deleteBookById,
+  deleteBookByAuthor,
+} = require("../controllers/Books");
 
 // Import comments controller
 const { createNewComment } = require("./../controllers/comments");
@@ -45,15 +45,15 @@ const articlesRouter = express.Router();
 }
  */
 
-articlesRouter.get("/", getAllArticles);
-articlesRouter.get("/search_1", getArticlesByAuthor);
-articlesRouter.get("/search_2", getArticleById);
-articlesRouter.post("/",authentication, createNewArticle);
-articlesRouter.put("/:id", updateArticleById);
-articlesRouter.delete("/:id", deleteArticleById);
-articlesRouter.delete("/", deleteArticlesByAuthor);
+BooksRouter.get("/", getAllBooks);
+BooksRouter.get("/search_1", getBooksByAuthor);
+BooksRouter.get("/search_2", getBookById);
+BooksRouter.post("/",authentication, createNewBook);
+ 
+BooksRouter.delete("/:id", deleteBookById);
+BooksRouter.delete("/", deleteBookByAuthor);
 
-articlesRouter.post(
+BooksRouter.post(
   "/:id/comments",
   authentication,
   createNewComment

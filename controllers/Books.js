@@ -1,44 +1,39 @@
-// This function returns the articles
-const getAllArticles = (req, res) => {
+// This function returns the
+const getAllBooks = (req, res) => {
   //TODO: write your code here
 };
 
-//This function returns articles by author
-const getArticlesByAuthor = (req, res) => {
+//This function returns  by author
+const getBooksByAuthor = (req, res) => {
   //TODO: write your code here
 };
 
 // This function returns article by its id
-const getArticleById = (req, res) => {
+const getBookById = (req, res) => {
   //TODO: write your code here
 };
 
 // This function creates new article
-const createNewArticle = (req, res) => {
-  //TODO: write your code here
-};
-
-// This function updates article by its id
-const updateArticleById = (req, res) => {
+const createNewBook = (req, res) => {
   //TODO: write your code here
 };
 
 // This function deletes a specific article by its id
-const deleteArticleById = (req, res) => {
+const deleteBookById = (req, res) => {
   //TODO: write your code here
 };
 
-// This function deletes all the articles for a specific author
-const deleteArticlesByAuthor = (req, res) => {
+// This function deletes all the  for a specific author
+const deleteBookByAuthor = (req, res) => {
   //TODO: write your code here
 };
 
 module.exports = {
-  getAllArticles,
-  getArticlesByAuthor,
-  getArticleById,
-  createNewArticle,
-  updateArticleById,
-  deleteArticleById,
-  deleteArticlesByAuthor,
+  getAllBooks,
+  getBooksByAuthor,
+  getBookById,
+  createNewBook,
+
+  deleteBookById,
+  deleteBookByAuthor,
 };
