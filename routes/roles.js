@@ -1,28 +1,11 @@
 const express = require("express");
 
-// Import roles controller
+//controllers
+
 const { createNewRole } = require("../controllers/roles");
 
-// Create roles router
-const rolesRouter = express.Router();
+const roleRouter = express.Router();
 
-/*
- * Testing Routes:
- * POST -> http://localhost:5000/roles/
-*/
+roleRouter.post("/", createNewRole);
 
-/*
- * Testing Object:
-{
-  "role": "USER",
-  "permissions": ["CREATE_COMMENTS"]
-}
-{
-  "role": "ADMIN",
-  "permissions": ["CREATE_USERS"]
-}
-*/
-
-rolesRouter.post("/", createNewRole);
-
-module.exports = rolesRouter;
+module.exports = roleRouter;

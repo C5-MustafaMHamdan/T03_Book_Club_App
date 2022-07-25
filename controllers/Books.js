@@ -1,8 +1,12 @@
+
+const connection = require("../models/db");
+
 // This function returns the
 const getAllBooks = (req, res) => {
   const command = `SELECT * FROM books WHERE is_deleted=0 ;`;
 
   connection.query(command, (err, result) => {
+    console.log(result);
     if (result.length > 0) {
       res.status(200).json({
         success: true,
@@ -35,6 +39,7 @@ const getBookById = (req, res) => {
   const data = [id];
 
   connection.query(command, data, (err, result) => {
+    console.log(result);
     if (err) {
       return res
         .status(500)
@@ -59,9 +64,10 @@ const getBookById = (req, res) => {
 const AddNewBook = (req, res) => {
   const { Title, book_img } = req.body;
 
-  const command = `INSERT INTO categories (Title,book_img) VALUES (?,?) `;
+  const command = `INSERT INTO books (Title,book_img) VALUES (?,?) `;
   const data = [Title, book_img];
   connection.query(command, data, (err, result) => {
+    console.log(result);
     if (err) {
       return res
         .status(500)

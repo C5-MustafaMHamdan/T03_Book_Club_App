@@ -25,6 +25,37 @@ const viewList = (req, res) => {
   });
 };
 
+/* getReadBookById */
+
+const getReadBookById = (req, res) => {
+  const id = req.params.id;
+
+  const query = `SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE book_id = ? `;
+
+  const data = [id];
+
+  connection.query(query, data, (err, result) => {
+    console.log(result);
+    if (err) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Server Error", err: err.message });
+    }
+    if (!result.length) {
+      return res.status(404).json({
+        success: false,
+        message: "The book Is Not Found",
+      });
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: "The book For The Specified Id",
+        category: result[0],
+      });
+    }
+  });
+};
+
 //add Book from List depend on the login | token userId
 const addToList = (req, res) => {
   const book_id = req.params.id;
@@ -91,4 +122,5 @@ module.exports = {
   viewList,
   removefromList,
   addToList,
+  getReadBookById,
 };

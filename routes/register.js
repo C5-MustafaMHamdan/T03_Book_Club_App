@@ -1,5 +1,5 @@
 const express = require("express");
-const { register } = require("../controllers/register");
+const { register } = require("../controllers/users");
 
 // define router
 const registerRouter = express.Router();
@@ -11,11 +11,9 @@ const registerRouter = express.Router();
 
  * Testing Object:
 {
-  "firstName": "Mhmd",
-  "lastName": "Jouza",
-  "age": 27,
-  "country": "Jordan",
-  "email":"Jouza@hotmail.com",
+  "username": "Mustafa",
+ 
+  "email":"Mustafa@hotmail.com",
   "password": "123456",
   "role":"1"
 }
