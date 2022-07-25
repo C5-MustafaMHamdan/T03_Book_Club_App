@@ -69,16 +69,6 @@ CREATE TABLE rooms(
     PRIMARY KEY (id)
 );
 
-CREATE TABLE rooms_discussion(
-    id INT NOT NULL AUTO_INCREMENT NOT NULL,
-    room_id INT,
-    user_id INT,
-    FOREIGN KEY (room_id) REFERENCES rooms (id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    is_deleted TINYINT DEFAULT 0,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE comments(
     id INT NOT NULL AUTO_INCREMENT NOT NULL,
     comment VARCHAR(255),

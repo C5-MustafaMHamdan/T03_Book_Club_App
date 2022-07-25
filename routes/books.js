@@ -27,7 +27,7 @@ booksRouter.get("/", getAllBooks);
 booksRouter.get("/:id", getBookById);
 
 
-booksRouter.put("/:id", deleteBookById);
+booksRouter.put("/:id", authentication,authorization("DELETE_BOOK"), deleteBookById);
 
 
 

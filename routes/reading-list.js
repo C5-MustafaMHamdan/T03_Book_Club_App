@@ -22,6 +22,6 @@ readRouter.get("/", authentication, viewList);
 
 readRouter.get("/:id", getReadBookById);
 
-readRouter.put("/:id", removefromList);
+readRouter.put("/:id",authentication, removefromList);
 
 module.exports = readRouter;

@@ -16,25 +16,18 @@ const register = async (req, res, next) => {
   const command = `INSERT INTO users (email ,password ,username  , role_id) VALUES (? , ?,? , ?)`;
   const data = [email, hashPassword, username, role_id];
   connection.query(command, data, (err, result) => {
-    if (err?.sqlMessage.includes(`for key 'users.email`)) {
-      return res
-        .status(409)
-        .json({ success: false, message: "The Email Already Exists" });
+    if (err) {
+      return res.status(409).json({
+        success: false,
+        massage: "The email already exists",
+        err:err.message
+      });
     }
-
-    if (err?.sqlMessage.includes(`for key 'users.username`)) {
-      return res
-        .status(409)
-        .json({ success: false, message: "The UserName Already Exists" });
-    }
-
-    if (err?.sqlMessage.includes(`'username' cannot be null`)) {
-      return res
-        .status(409)
-        .json({ success: false, message: "The UserName Cannot Be Null" });
-    }
-
-    next();
+    res.status(200).json({
+      success: true,
+      massage: "Account Created Successfully",
+      result
+    });
   });
 };
 
