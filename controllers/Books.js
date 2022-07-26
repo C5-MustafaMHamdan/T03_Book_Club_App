@@ -63,8 +63,11 @@ const getBookById = (req, res) => {
 const AddNewBook = (req, res) => {
   const { Title, book_img } = req.body;
 
-  const command = `INSERT INTO books (Title,book_img) VALUES (?,?) `;
-  const data = [Title, book_img];
+const role=req.token.role
+
+if(role==="ADMIN") 
+ { const command = `INSERT INTO books (Title,book_img ,is_accepted) VALUES (?,?,?) `;
+  const data = [Title, book_img,1];
   connection.query(command, data, (err, result) => {
     console.log(result);
     if (err) {
@@ -78,7 +81,19 @@ const AddNewBook = (req, res) => {
       message: "book is added ",
       book: result[0],
     });
+  });}
+
+else{
+
+  res.status(201).json({
+    success: true,
+    message: "book is send to admin to add the book ",
+    
   });
+
+}
+
+
 };
 
 // This function deletes a specific article by its id

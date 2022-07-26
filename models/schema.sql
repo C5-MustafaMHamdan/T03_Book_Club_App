@@ -49,9 +49,6 @@ CREATE TABLE books(
     PRIMARY KEY (id)
 );
 
-
- 
-
 CREATE TABLE reading_book(
     id INT AUTO_INCREMENT NOT NULL,
     is_deleted TINYINT DEFAULT 0,

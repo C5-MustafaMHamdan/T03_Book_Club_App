@@ -20,7 +20,7 @@ const authorization = require("../middleware/authorization");
 const booksRouter = express.Router();
 
  
-booksRouter.post("/", authentication,authorization("ADD_BOOK"), AddNewBook);
+booksRouter.post("/", authentication ,AddNewBook);
 
 booksRouter.get("/", getAllBooks);
 
