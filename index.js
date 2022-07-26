@@ -14,7 +14,7 @@ const rolesRouter = require("./routes/roles");
 const permissionRouter = require("./routes/permission");
 const readRouter =require("./routes/reading-list")
 const roomRouter = require("./routes/room")
-
+const commentRouter = require("./routes/comments")
 app.use(cors());
 app.use(express.json());
 
@@ -26,7 +26,7 @@ app.use("/login", loginRouter);
 app.use("/permission", permissionRouter);
 app.use("/readinglist",readRouter)
 app.use("/rooms",roomRouter)
-
+app.use("/comments",commentRouter)
 // Handles any other endpoints [unassigned - endpoints]
 app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 

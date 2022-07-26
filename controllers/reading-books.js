@@ -30,7 +30,7 @@ const viewList = (req, res) => {
 const getReadBookById = (req, res) => {
   const id = req.params.id;
 
-  const query = `SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE book_id = ? `;
+  const query = `SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE book_id = ?   `;
 
   const data = [id];
 
@@ -61,7 +61,7 @@ const addToList = (req, res) => {
   const book_id = req.params.id;
   const user_id = req.token.userId;
 
-  const query = `SELECT * FROM books WHERE id=? `;
+  const query = `SELECT * FROM books WHERE id=? AND is_deleted=0 `;
   const data = [book_id];
 
   connection.query(query, data, (err, result) => {
@@ -96,9 +96,8 @@ const removefromList = (req, res) => {
   const user_id = req.token.userId;
   const book_id = req.params.id;
 
-  const query = `UPDATE reading_book SET is_deleted=1 
-    WHERE user_id=? AND book_id=?;`;
-  const data = [user_id, book_id];
+  const query = `UPDATE reading_book SET is_deleted = 1 where book_id = ? AND user_id = ? `;
+  const data = [book_id, user_id];
 
   connection.query(query, data, (error, result) => {
     console.log(error);

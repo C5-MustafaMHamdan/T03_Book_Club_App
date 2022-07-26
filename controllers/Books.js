@@ -1,4 +1,3 @@
-
 const connection = require("../models/db");
 
 // This function returns the

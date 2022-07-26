@@ -45,8 +45,12 @@ CREATE TABLE books(
     Title VARCHAR(255),
     is_deleted TINYINT DEFAULT 0,
     book_img VARCHAR(255),
+    is_accepted TINYINT DEFAULT 0,
     PRIMARY KEY (id)
 );
+
+
+ 
 
 CREATE TABLE reading_book(
     id INT AUTO_INCREMENT NOT NULL,
