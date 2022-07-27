@@ -7,7 +7,7 @@ export const books = createSlice({
   },
   reducers: {
     setBooks: (state, action) => {
-      state.articles = action.payload;
+      state.books = action.payload;
     },
     addBook: (state, action) => {
       state.books.push(action.payload);
@@ -24,4 +24,4 @@ export const books = createSlice({
 export const { setBooks, addBook, deleteBookById } =
   books.actions;
 
-export default articles.reducer;
+export default books.reducer;
