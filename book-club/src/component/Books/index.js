@@ -5,26 +5,25 @@ import axios from "axios";
 
 //===========================Redux====================================
 import { setBooks, addBook, deleteBookById } from "../Redux/reducers/books";
+import {addToReadingList} from "../Redux/reducers/reading"
 
 import { useSelector, useDispatch } from "react-redux";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { token, isLoggedIn, books } = useSelector((state) => {
+  const { token, isLoggedIn, books ,readingList} = useSelector((state) => {
     return {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn,
       books: state.books.books,
+      readingList:state.readingList.readingList
     };
   });
 
-  const [title, setTitle] = useState("");
-
-  const [updateBox, setUpdateBox] = useState(false);
-  const [articleId, setArticleId] = useState(false);
+   
   const [message, setMessage] = useState("");
 
-  const [comment, setComment] = useState("");
+ 
 
   //===============================================================
 
@@ -62,6 +61,19 @@ const Dashboard = () => {
 
   //===============================================================
 
+  const addtoread = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/books/${id}`);
+      dispatch(deleteBookById(id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+
+
+  //=========================================================================
+
   useEffect(() => {
     getAllBooks();
   }, []);
@@ -79,8 +91,14 @@ const Dashboard = () => {
             <div>{book.Title}</div>
 <div>  <img src={book.book_img}></img>      </div>
             <button className="delete" onClick={() => deleteBook(book.id)}>
-              X
+       Join Room
             </button>
+
+            <button className="addToRead" onClick={() => deleteBook(book.id)}>
+           Add To readList
+            </button>
+
+
           </div>
         ))}
       {message && <div>{message}</div>}
