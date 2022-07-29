@@ -9,6 +9,7 @@ import { SignupPage } from "./component/Register";
 import HomePage from "./component/Home";
 import Navbar from "./component/Navbar";  
 import Books from "./component/Books";
+import ReadingList from "./component/Reading_List";
 //styling
 import "./App.css";
 
@@ -22,7 +23,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
 
-       
+        <Route path="/Reading-List" element={<ReadingList />} />
         <Route path="/books" element={<Books />} />
          <Route path={"/"} element={<HomePage />} />
 

@@ -9,7 +9,7 @@ import {addToReadingList} from "../Redux/reducers/reading"
 
 import { useSelector, useDispatch } from "react-redux";
 
-const Dashboard = () => {
+const Books = () => {
   const dispatch = useDispatch();
   const { token, isLoggedIn, books ,readingList} = useSelector((state) => {
     return {
@@ -34,8 +34,8 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data);
-      console.log(res.data.rooms);
+   
+    
       if (res.data.success) {
         dispatch(setBooks(res.data.rooms));
         setMessage("");
@@ -52,7 +52,7 @@ const Dashboard = () => {
 
   const deleteBook = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/books/${id}`);
+      await axios.put(`http://localhost:5000/books/${id}`);
       dispatch(deleteBookById(id));
     } catch (error) {
       console.log(error);
@@ -63,8 +63,20 @@ const Dashboard = () => {
 
   const addtoread = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/books/${id}`);
-      dispatch(deleteBookById(id));
+   const res=   await  axios.post(`http://localhost:5000/readinglist/${id}`,
+      {
+
+      }
+      
+      ,{
+        
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+       
+      });
+      console.log(res)
+      dispatch(addToReadingList(res.data));
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +92,7 @@ const Dashboard = () => {
 
   //===============================================================
 
-  console.log(books);
+
 
   return (
     <>
@@ -94,7 +106,7 @@ const Dashboard = () => {
        Join Room
             </button>
 
-            <button className="addToRead" onClick={() => deleteBook(book.id)}>
+            <button className="addToRead" onClick={() => addtoread(book.id)}>
            Add To readList
             </button>
 
@@ -106,4 +118,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Books;
