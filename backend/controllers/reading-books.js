@@ -5,7 +5,7 @@ const viewList = (req, res) => {
   const userId = req.token.userId;
 
   const query = ` SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE user_id=?  AND reading_book.is_deleted=0  `;
-/* SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE book_id = ?  */
+  /* SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE book_id = ?  */
   const data = [userId];
 
   connection.query(query, data, (err, result) => {
@@ -100,7 +100,6 @@ const removefromList = (req, res) => {
   const data = [book_id, user_id];
 
   connection.query(query, data, (error, result) => {
-    console.log(error);
     if (error) {
       return res.status(500).json({
         success: false,
