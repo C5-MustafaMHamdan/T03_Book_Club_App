@@ -4,8 +4,8 @@ const connection = require("../models/db");
 const viewList = (req, res) => {
   const userId = req.token.userId;
 
-  const query = ` SELECT * FROM reading_book WHERE user_id=? AND is_deleted=0  `;
-
+  const query = ` SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE user_id=?  AND reading_book.is_deleted=0  `;
+/* SELECT * FROM reading_book INNER JOIN books ON reading_book.book_id = books.id WHERE book_id = ?  */
   const data = [userId];
 
   connection.query(query, data, (err, result) => {
