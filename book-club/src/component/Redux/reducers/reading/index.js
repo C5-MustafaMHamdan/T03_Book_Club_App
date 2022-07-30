@@ -23,7 +23,7 @@ export const readingList = createSlice({
 
     removeFromReadingList: (state, action) => {
       state.readingList = state.readingList.filter((reader, index) => {
-        console.log(reader,"ggggggggggggggggggg");
+     
         return reader.id != action.payload;
       });
     },
