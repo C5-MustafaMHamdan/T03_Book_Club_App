@@ -1,41 +1,56 @@
 const connection = require("../models/db");
 
 const createNewRoom = (req, res) => {
-  const { description } = req.body;
-
   const book_id = req.params.id;
-  const admin_id = req.token.userId;
-
-  const query = `SELECT * FROM books WHERE id=? `;
+  const { description } = req.body;
+  user_id = req.token.userId;
+  const query = `SELECT * FROM books WHERE id = ? and is_deleted=0`;
   const data = [book_id];
-
   connection.query(query, data, (err, result) => {
     if (result.length === 0) {
       return res.status(404).json({
         success: false,
-        massage: "Book is not found",
+        massage: "not found",
       });
     }
-    const query2 = `INSERT INTO rooms (book_id ,admin_id,description) VALUES (?,?,?)`;
-    const data2 = [book_id, admin_id, description];
 
-    connection.query(query2, data2, (err, result) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ success: false, message: `Server Error`, err: err.message });
+    const query3 = `SELECT * FROM rooms WHERE  is_deleted=0`;
+    const data = [book_id];
+
+    connection.query(query3, data, (err, result) => {
+      console.log(result);
+
+      for (let index = 0; index < result.length; index++) {
+        if (result[index].book_id == book_id) {
+          return res.status(404).json({
+            success: false,
+            massage: "room already exist ",
+          });
+        }
       }
-      res.status(201).json({
-        success: true,
-        message: "Room created",
-        room: result,
+
+      const query2 = `insert into rooms (description,book_id,admin_id) values (?,?,?);`;
+      const data2 = [description, book_id, user_id];
+      connection.query(query2, data2, (err, result) => {
+        if (err) {
+          return res.status(500).json({
+            success: false,
+            massage: "not ",
+            err: err,
+          });
+        }
+        return res.status(201).json({
+          success: true,
+          massage: "room created",
+          result: result,
+        });
       });
     });
   });
 };
 
 const getAllRoom = (req, res) => {
-  const query = `select * from rooms where is_deleted=0; `;
+  const query = ` SELECT * FROM rooms INNER JOIN books ON rooms.book_id = books.id WHERE   rooms.is_deleted=0  `;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(404).json({
